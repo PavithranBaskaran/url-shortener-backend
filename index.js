@@ -117,13 +117,13 @@ app.post("/register", async function (request, response) {
             pass:  process.env.pass,
           },
         });
-
+let link = "https://pavi-shortener.vercel.app/activate-account/"
         var mailOptions = {
           from: "testnodemail04@gmail.com",
           to: mailid,
           subject: "URL Shortener",
           text: `Please activate the account by clicking this link`,
-          html: `<div><h3><a href="#"> https://pavi-shortener.vercel.app/activate-account/ </a></h3></div>`,
+          html: `<h2>  Click the link to activate account ${link}</h2>`,
         };
 
         transporter.sendMail(mailOptions, function (error, info) {

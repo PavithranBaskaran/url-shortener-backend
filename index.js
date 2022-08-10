@@ -10,15 +10,14 @@ const randomstring = require("randomstring");
 const url = require("./config");
 
 const URL =
-  process.env.DB ||
-  "mongodb+srv://user:user@cluster0.apdks2v.mongodb.net/?retryWrites=true&w=majority";
+  process.env.DB
 
 let authenticate = function (request, response, next) {
   // console.log(request.headers);
   if (request.headers.authorization) {
     let verify = jwt.verify(
       request.headers.authorization,
-      process.env.SECRET || "IFNSLT8px6NzjFPI9jhl"
+      process.env.SECRET 
     );
     console.log(verify);
     if (verify) {
@@ -63,7 +62,7 @@ app.post("/", async function (request, response) {
         //Token
         const token = jwt.sign(
           { id: user._id, username: user.username, active: user.active },
-          process.env.SECRET || "IFNSLT8px6NzjFPI9jhl"
+          process.env.SECRET
         );
         // console.log(token);
         response.json({
@@ -115,7 +114,7 @@ app.post("/register", async function (request, response) {
           service: "gmail",
           auth: {
             user: "testnodemail04@gmail.com",
-            pass: "vkoi jqcf ejsx wvni" || process.env.pass,
+            pass:  process.env.pass,
           },
         });
 
@@ -208,7 +207,7 @@ app.post("/resetpassword", async function (request, response) {
         service: "gmail",
         auth: {
           user: "testnodemail04@gmail.com",
-          pass: "vkoi jqcf ejsx wvni" || process.env.pass,
+          pass: process.env.pass,
         },
       });
 

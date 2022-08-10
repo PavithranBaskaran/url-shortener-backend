@@ -123,7 +123,7 @@ app.post("/register", async function (request, response) {
           to: mailid,
           subject: "URL Shortener",
           text: `Please activate the account by clicking this link`,
-          html: `<div><h3><a href="#"> http://localhost:3000/activate-account/ </a></h3></div>`,
+          html: `<div><h3><a href="#"> https://pavi-shortener.vercel.app/activate-account/ </a></h3></div>`,
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
@@ -197,7 +197,7 @@ app.post("/resetpassword", async function (request, response) {
     if (user) {
       let mailid = request.body.email;
       let rString = randomstring.generate(7);
-      let link = "http://localhost:3000/reset-password-page";
+      let link = "https://pavi-shortener.vercel.app/reset-password-page";
       await db
         .collection("users")
         .updateOne({ email: mailid }, { $set: { rString: rString } });

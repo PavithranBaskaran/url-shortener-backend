@@ -358,21 +358,30 @@ app.get("/:shortURL", async function (request, response) {
   try {
     const connection = await mongoClient.connect(URL);
     const db = connection.db("URLshortener");
-    db.collection("urls").findOne(
-      { shortURL: `${url}/${request.params.shortURL}` },
-      function (error, data) {
-        if (error) throw error;
-        db.collection("urls").updateOne(
+    let data = await db
+      .collection("urls")
+      .findOne({ shortURL: `${url}/${request.params.shortURL}` });
+    if (data) {
+     // console.log(data);
+      let res = await db
+        .collection("urls")
+        .updateOne(
           { shortURL: `${url}/${request.params.shortURL}` },
-          { $inc: { count: 1 } },
-          function (error, updatedData) {
-            if (error) throw error;
-            response.redirect(data.longURL);
-          }
+          { $inc: { count: 1 } }
         );
+      if (res) {
+        response.redirect(data.longURL);
+      } else {
+        response.json({
+          message: "something went wrong",
+        });
       }
-    );
-    await connection.close()
+    } else {
+      response.json({
+        message: "something went wrong",
+      });
+    }
+    await connection.close();
   } catch (error) {
     console.log(error);
   }

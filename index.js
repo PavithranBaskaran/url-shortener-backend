@@ -372,7 +372,7 @@ app.get("/:shortURL", async function (request, response) {
         );
       }
     );
-    // await connection.close()
+    await connection.close()
   } catch (error) {
     console.log(error);
   }

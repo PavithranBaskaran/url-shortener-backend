@@ -380,4 +380,4 @@ app.get("/:shortURL", async function (request, response) {
 
 
 
-app.listen(3001 || process.env.PORT );
+app.listen(process.env.PORT );
